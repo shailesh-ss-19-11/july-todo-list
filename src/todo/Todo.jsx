@@ -7,24 +7,29 @@ const Todo = () => {
     const [todoList, setTodoList] = useState([]);
 
     const addTodoTask = () => {
-        const uuid = uuidv4();
-        let obj = { id: uuid, task: input, isRemoved: false };
-        let newTodoList = [...todoList, obj]
-        setTodoList(newTodoList);
+        // const uuid = uuidv4();
+        if (input !== "") {
+            let obj = { id: Date.now(), task: input, isRemoved: false };
+            let newTodoList = [...todoList, obj]
+            setTodoList(newTodoList);
+            setInput("");
+        }else{
+            alert("please write something in input")
+        }
     }
 
     return (
         <>
             <div className="container d-flex gap-3">
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Enter Task" onChange={(e) => setInput(e.target.value)} />
+                    <input type="text" className="form-control" value={input} placeholder="Enter Task" onChange={(e) => setInput(e.target.value)} />
                 </div>
                 <div>
                     <button className="btn btn-md btn-primary" onClick={addTodoTask}>ADD</button>
                 </div>
             </div>
 
-            <TodoTable todoList={todoList}/>
+            <TodoTable todoList={todoList} />
         </>
     )
 }

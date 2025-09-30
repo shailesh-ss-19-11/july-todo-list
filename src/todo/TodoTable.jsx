@@ -20,8 +20,8 @@ const TodoTable = (props) => {
                                             <td>{task.id}</td>
                                             <td>{task.task}</td>
                                             <td>
-                                                <button>Edit</button>
-                                                <button>Delete</button>
+                                                <button className="btn btn-sm btn-success mx-1">Edit</button>
+                                                <button className="btn btn-sm btn-danger mx-1">Delete</button>
                                             </td>
                                         </tr>
                                     )
