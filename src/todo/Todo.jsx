@@ -1,35 +1,88 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import TodoTable from "./TodoTable";
+import EditTodo from "./EditTodo";
 
 const Todo = () => {
     const [input, setInput] = useState("");
     const [todoList, setTodoList] = useState([]);
+    const [showModal, setshowModal] = useState(true);
 
     const addTodoTask = () => {
         // const uuid = uuidv4();
         if (input !== "") {
-            let obj = { id: Date.now(), task: input, isRemoved: false };
-            let newTodoList = [...todoList, obj]
-            setTodoList(newTodoList);
-            setInput("");
-        }else{
+            let newTodoList = [...todoList];
+            const isExist = newTodoList.some((element) => {
+                return element.task.toLowerCase().trim() === input.toLowerCase().trim()
+            })
+            console.log(isExist);
+
+            if (isExist) {
+                alert("task is already exist");
+            } else {
+                let obj = { id: Date.now(), task: input, isRemoved: false };
+                newTodoList = [...newTodoList, obj];
+
+                setTodoList(newTodoList);
+                setInput("");
+            }
+        } else {
             alert("please write something in input")
         }
+    }
+
+    const handleKeyEvent = (event) => {
+        // console.log();
+        if (event.nativeEvent.key === "Enter") {
+            if (input !== "") {
+                let newTodoList = [...todoList];
+                const isExist = newTodoList.some((element) => {
+                    return element.task.toLowerCase().trim() === input.toLowerCase().trim()
+                })
+                console.log(isExist);
+
+                if (isExist) {
+                    alert("task is already exist");
+                } else {
+
+                    let obj = { id: Date.now(), task: input, isRemoved: false };
+                    newTodoList = [...newTodoList, obj];
+
+                    setTodoList(newTodoList);
+                    setInput("");
+                }
+            } else {
+                alert("please write something in input")
+            }
+        }
+    }
+
+    const deleteTask = (taskid) => {
+        // alert("delete task called "+ taskid);
+        const newTodoList = [...todoList];
+        const filteredList = newTodoList.filter((task) => task.id !== taskid)
+        setTodoList(filteredList);
     }
 
     return (
         <>
             <div className="container d-flex gap-3">
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" value={input} placeholder="Enter Task" onChange={(e) => setInput(e.target.value)} />
+                    <input type="text"
+                        className="form-control"
+                        value={input}
+                        placeholder="Enter Task"
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyDown={handleKeyEvent}
+                    />
                 </div>
                 <div>
                     <button className="btn btn-md btn-primary" onClick={addTodoTask}>ADD</button>
                 </div>
             </div>
 
-            <TodoTable todoList={todoList} />
+            <TodoTable todoList={todoList} deleteTask={deleteTask} />
+            <EditTodo showModal={showModal}/>
         </>
     )
 }

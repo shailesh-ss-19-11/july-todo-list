@@ -1,5 +1,5 @@
 const TodoTable = (props) => {
-    const { todoList } = props;
+    const { todoList,deleteTask } = props;
     return (
         <>
             <div className="container">
@@ -21,7 +21,7 @@ const TodoTable = (props) => {
                                             <td>{task.task}</td>
                                             <td>
                                                 <button className="btn btn-sm btn-success mx-1">Edit</button>
-                                                <button className="btn btn-sm btn-danger mx-1">Delete</button>
+                                                <button className="btn btn-sm btn-danger mx-1" onClick={()=>deleteTask(task.id)}>Delete</button>
                                             </td>
                                         </tr>
                                     )
