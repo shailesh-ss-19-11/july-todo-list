@@ -6,7 +6,7 @@ import EditTodo from "./EditTodo";
 const Todo = () => {
     const [input, setInput] = useState("");
     const [todoList, setTodoList] = useState([]);
-    const [showModal, setshowModal] = useState(true);
+    const [showModal, setshowModal] = useState(false);
 
     const addTodoTask = () => {
         // const uuid = uuidv4();
@@ -44,7 +44,6 @@ const Todo = () => {
                 if (isExist) {
                     alert("task is already exist");
                 } else {
-
                     let obj = { id: Date.now(), task: input, isRemoved: false };
                     newTodoList = [...newTodoList, obj];
 
@@ -64,6 +63,8 @@ const Todo = () => {
         setTodoList(filteredList);
     }
 
+    console.log(showModal)
+
     return (
         <>
             <div className="container d-flex gap-3">
@@ -81,8 +82,10 @@ const Todo = () => {
                 </div>
             </div>
 
-            <TodoTable todoList={todoList} deleteTask={deleteTask} />
-            <EditTodo showModal={showModal}/>
+            <TodoTable setshowModal={setshowModal} todoList={todoList} deleteTask={deleteTask} />
+            {/* conditional rendering  */}
+            {showModal ? <EditTodo showModal={showModal} /> : null}  
+
         </>
     )
 }
