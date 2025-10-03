@@ -32,6 +32,7 @@ const Todo = () => {
     }
 
     const handleKeyEvent = (event) => {
+        console.log("first")
         // console.log();
         if (event.nativeEvent.key === "Enter") {
             if (input !== "") {
