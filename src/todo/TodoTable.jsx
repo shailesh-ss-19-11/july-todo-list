@@ -1,5 +1,5 @@
 const TodoTable = (props) => {
-    const { todoList, deleteTask, setshowModal } = props;
+    const { todoList, deleteTask, setshowModal, setTask } = props;
     return (
         <>
             <div className="container">
@@ -20,7 +20,7 @@ const TodoTable = (props) => {
                                             <td>{task.id}</td>
                                             <td>{task.task}</td>
                                             <td>
-                                                <button className="btn btn-sm btn-success mx-1" onClick={() => setshowModal(true)}>Edit</button>
+                                                <button className="btn btn-sm btn-success mx-1" onClick={() => { setshowModal(true); setTask(task) }}>Edit</button>
                                                 <button className="btn btn-sm btn-danger mx-1" onClick={() => deleteTask(task.id)}>Delete</button>
                                             </td>
                                         </tr>

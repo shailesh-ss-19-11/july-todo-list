@@ -7,6 +7,7 @@ const Todo = () => {
     const [input, setInput] = useState("");
     const [todoList, setTodoList] = useState([]);
     const [showModal, setshowModal] = useState(false);
+    const [task, setTask] = useState({});
 
     const addTodoTask = () => {
         // const uuid = uuidv4();
@@ -66,6 +67,19 @@ const Todo = () => {
 
     console.log(showModal)
 
+    const updateTask = (updatedValue) => {
+        console.log(updatedValue);
+        const newList = todoList.map((task) => {
+            if (task.id === updatedValue.id) {
+                return updatedValue;
+            } else {
+                return task;
+            }
+        })
+        setTodoList(newList);
+        setshowModal(false);
+    }
+
     return (
         <>
             <div className="container d-flex gap-3">
@@ -83,9 +97,20 @@ const Todo = () => {
                 </div>
             </div>
 
-            <TodoTable setshowModal={setshowModal} todoList={todoList} deleteTask={deleteTask} />
+            <TodoTable
+                setshowModal={setshowModal}
+                todoList={todoList}
+                deleteTask={deleteTask}
+                setTask={setTask}
+            />
             {/* conditional rendering  */}
-            {showModal ? <EditTodo showModal={showModal} /> : null}  
+            {showModal ?
+                <EditTodo
+                    task={task}
+                    setshowModal={setshowModal}
+                    updateTask={updateTask}
+                    showModal={showModal} />
+                : null}
 
         </>
     )

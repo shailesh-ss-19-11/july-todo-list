@@ -1,26 +1,38 @@
 import { Modal } from "react-bootstrap";
-
+import { useState } from "react";
 const EditTodo = (props) => {
-    const { showModal } = props;
+    const [task, settask] = useState(props.task);
+    const { showModal, setshowModal, updateTask } = props;
+    // console.log(task)
+
+    const handleChange = (event) => {
+        settask({ ...task, task: event.target.value })
+       
+    }
     return (
         <Modal
             show={showModal}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            onHide={() => setshowModal(false)}
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Modal heading
+                    Update Task
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h4>Centered Modal</h4>
-                <p>
-                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                    consectetur ac, vestibulum at eros.
-                </p>
+                <div className="input-group mb-3">
+                    <input type="text"
+                        className="form-control"
+                        defaultValue={task.task}
+                        placeholder="Update Task"
+                        onChange={handleChange}
+                    // onKeyDown={handleKeyEvent}
+                    />
+                </div>
+                <button className="btn btn-sm btn-primary" onClick={()=>updateTask(task)}>Submit</button>
             </Modal.Body>
         </Modal>
 
