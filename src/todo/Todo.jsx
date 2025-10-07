@@ -86,6 +86,7 @@ const Todo = () => {
         // manage sideeffects 
         // clean component 
         // console.log("inside UseEffect");
+        
     }, [])
 
     const updateLocalStorage = () => {

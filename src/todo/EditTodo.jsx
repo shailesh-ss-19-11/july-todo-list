@@ -1,5 +1,5 @@
 import { Modal } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const EditTodo = (props) => {
     const [task, settask] = useState(props.task);
     const { showModal, setshowModal, updateTask } = props;
@@ -8,6 +8,14 @@ const EditTodo = (props) => {
     const handleChange = (event) => {
         settask({ ...task, task: event.target.value })
     }
+
+    useEffect(() => {
+        // cleaning 
+        return () => {
+            alert("component exit")
+        }
+    }, [])
+
     return (
         <Modal
             show={showModal}
@@ -31,7 +39,7 @@ const EditTodo = (props) => {
                     // onKeyDown={handleKeyEvent}
                     />
                 </div>
-                <button className="btn btn-sm btn-primary" onClick={()=>updateTask(task)}>Submit</button>
+                <button className="btn btn-sm btn-primary" onClick={() => updateTask(task)}>Submit</button>
             </Modal.Body>
         </Modal>
 
