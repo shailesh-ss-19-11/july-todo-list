@@ -7,7 +7,6 @@ const EditTodo = (props) => {
 
     const handleChange = (event) => {
         settask({ ...task, task: event.target.value })
-       console.log(task)
     }
     return (
         <Modal

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import TodoTable from "./TodoTable";
 import EditTodo from "./EditTodo";
 
 const Todo = () => {
+    // executes first 
     const [input, setInput] = useState("");
     const [todoList, setTodoList] = useState([]);
     const [showModal, setshowModal] = useState(false);
@@ -33,22 +34,18 @@ const Todo = () => {
     }
 
     const handleKeyEvent = (event) => {
-        console.log("first")
-        // console.log();
         if (event.nativeEvent.key === "Enter") {
             if (input !== "") {
                 let newTodoList = [...todoList];
                 const isExist = newTodoList.some((element) => {
                     return element.task.toLowerCase().trim() === input.toLowerCase().trim()
                 })
-                console.log(isExist);
 
                 if (isExist) {
                     alert("task is already exist");
                 } else {
                     let obj = { id: Date.now(), task: input, isRemoved: false };
                     newTodoList = [...newTodoList, obj];
-
                     setTodoList(newTodoList);
                     setInput("");
                 }
@@ -63,12 +60,10 @@ const Todo = () => {
         const newTodoList = [...todoList];
         const filteredList = newTodoList.filter((task) => task.id !== taskid)
         setTodoList(filteredList);
+
     }
 
-    console.log(showModal)
-
     const updateTask = (updatedValue) => {
-        console.log(updatedValue);
         const newList = todoList.map((task) => {
             if (task.id === updatedValue.id) {
                 return updatedValue;
@@ -80,8 +75,34 @@ const Todo = () => {
         setshowModal(false);
     }
 
+
+    useEffect(() => {
+        const todoListItems = JSON.parse(localStorage.getItem("todoItems"));
+        console.log(todoListItems);
+
+        setTodoList(todoListItems);
+
+        // use for fetch api's 
+        // manage sideeffects 
+        // clean component 
+        // console.log("inside UseEffect");
+    }, [])
+
+    const updateLocalStorage = () => {
+        localStorage.setItem("todoItems", JSON.stringify(todoList))
+    }
+
+    useEffect(() => {
+        updateLocalStorage();
+    }, [todoList])
+
+
+    // DRY rule ---> dont repeat Yourself
+
     return (
         <>
+
+            {console.log("UI rendered")}
             <div className="container d-flex gap-3">
                 <div className="input-group mb-3">
                     <input type="text"

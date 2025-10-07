@@ -16,7 +16,7 @@ const TodoTable = (props) => {
                             todoList.length > 0 ?
                                 todoList.map((task) => {
                                     return (
-                                        <tr>
+                                        <tr key={task.id}>
                                             <td>{task.id}</td>
                                             <td>{task.task}</td>
                                             <td>
