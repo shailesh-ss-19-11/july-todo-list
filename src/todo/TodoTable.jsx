@@ -1,11 +1,12 @@
 const TodoTable = (props) => {
-    const { todoList, deleteTask, setshowModal, setTask } = props;
+    const { todoList, deleteTask, setshowModal, setTask,handleSelectTodo } = props;
     return (
         <>
             <div className="container">
                 <table className="table">
                     <thead>
                         <tr>
+                            <th><input type="checkbox" /></th>
                             <th scope="col">#</th>
                             <th scope="col">Task Name</th>
                             <th scope="col">Actions</th>
@@ -14,9 +15,10 @@ const TodoTable = (props) => {
                     <tbody>
                         {
                             todoList.length > 0 ?
-                                todoList.map((task) => {
+                                todoList.map((task,index) => {
                                     return (
                                         <tr key={task.id}>
+                                            <td><input type="checkbox" onChange={(e)=>handleSelectTodo(e,task.id,index)}/></td>
                                             <td>{task.id}</td>
                                             <td>{task.task}</td>
                                             <td>

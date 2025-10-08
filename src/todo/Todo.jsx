@@ -9,6 +9,7 @@ const Todo = () => {
     const [todoList, setTodoList] = useState([]);
     const [showModal, setshowModal] = useState(false);
     const [task, setTask] = useState({});
+    const [checkedTodos, setcheckedTodos] = useState([]);
 
     const addTodoTask = () => {
         // const uuid = uuidv4();
@@ -17,7 +18,6 @@ const Todo = () => {
             const isExist = newTodoList.some((element) => {
                 return element.task.toLowerCase().trim() === input.toLowerCase().trim()
             })
-            console.log(isExist);
 
             if (isExist) {
                 alert("task is already exist");
@@ -78,7 +78,6 @@ const Todo = () => {
 
     useEffect(() => {
         const todoListItems = JSON.parse(localStorage.getItem("todoItems"));
-        console.log(todoListItems);
 
         setTodoList(todoListItems);
 
@@ -86,7 +85,7 @@ const Todo = () => {
         // manage sideeffects 
         // clean component 
         // console.log("inside UseEffect");
-        
+
     }, [])
 
     const updateLocalStorage = () => {
@@ -98,12 +97,30 @@ const Todo = () => {
     }, [todoList])
 
 
-    // DRY rule ---> dont repeat Yourself
+    const handleSelectTodo = (event, id, index) => {
+        let existingTodo = [];
+        if (event.target.checked) {
+            existingTodo = [...checkedTodos, id];
+            setcheckedTodos(existingTodo);
+        } else {
+            existingTodo = [...checkedTodos];
+            existingTodo.splice(index, 1);
+            setcheckedTodos(existingTodo);
+        }
+    }
+
+    const removeSelected = () => {
+        let existingtodoList = [...todoList];
+        const newTodoList = existingtodoList.filter((element) => {
+            return !checkedTodos.includes(element.id)
+        });
+        setTodoList(newTodoList);
+        setcheckedTodos([])
+    }
 
     return (
         <>
 
-            {console.log("UI rendered")}
             <div className="container d-flex gap-3">
                 <div className="input-group mb-3">
                     <input type="text"
@@ -117,9 +134,13 @@ const Todo = () => {
                 <div>
                     <button className="btn btn-md btn-primary" onClick={addTodoTask}>ADD</button>
                 </div>
+                <div>
+                    <button className="btn btn-md btn-primary" onClick={removeSelected}>Remove Selected</button>
+                </div>
             </div>
 
             <TodoTable
+                handleSelectTodo={handleSelectTodo}
                 setshowModal={setshowModal}
                 todoList={todoList}
                 deleteTask={deleteTask}

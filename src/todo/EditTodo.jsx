@@ -12,7 +12,7 @@ const EditTodo = (props) => {
     useEffect(() => {
         // cleaning 
         return () => {
-            alert("component exit")
+            console.log("component exit")
         }
     }, [])
 
