@@ -9,7 +9,7 @@ const Todo = () => {
     const [todoList, setTodoList] = useState([]);
     const [showModal, setshowModal] = useState(false);
     const [task, setTask] = useState({});
-    const [checkedTodos, setcheckedTodos] = useState([]);
+    const [selectAll, setselectAll] = useState(false)
 
     const addTodoTask = () => {
         // const uuid = uuidv4();
@@ -22,7 +22,7 @@ const Todo = () => {
             if (isExist) {
                 alert("task is already exist");
             } else {
-                let obj = { id: Date.now(), task: input, isRemoved: false };
+                let obj = { id: Date.now(), task: input };
                 newTodoList = [...newTodoList, obj];
 
                 setTodoList(newTodoList);
@@ -97,26 +97,35 @@ const Todo = () => {
     }, [todoList])
 
 
-    const handleSelectTodo = (event, id, index) => {
-        let existingTodo = [];
-        if (event.target.checked) {
-            existingTodo = [...checkedTodos, id];
-            setcheckedTodos(existingTodo);
-        } else {
-            existingTodo = [...checkedTodos];
-            existingTodo.splice(index, 1);
-            setcheckedTodos(existingTodo);
-        }
+    const handleSelectTodo = (event, id) => {
+        let updatedTodoList = todoList.map((task) => {
+            if (task.id === id) {
+                return { ...task, isChecked: event.target.checked }
+            } else {
+                return { ...task, isChecked: task.isChecked || false }
+            }
+        })
+        setTodoList(updatedTodoList);
     }
 
     const removeSelected = () => {
         let existingtodoList = [...todoList];
         const newTodoList = existingtodoList.filter((element) => {
-            return !checkedTodos.includes(element.id)
+            return element.isChecked === false
         });
         setTodoList(newTodoList);
-        setcheckedTodos([])
+        setselectAll(false);
     }
+
+    const selectAllTodo = (event) => {
+        setselectAll(event.target.checked)
+        const newTodoList = todoList.map((element) => {
+            return { ...element, isChecked: event.target.checked };
+        })
+        setTodoList(newTodoList);
+    }
+
+    console.log(todoList);
 
     return (
         <>
@@ -145,6 +154,9 @@ const Todo = () => {
                 todoList={todoList}
                 deleteTask={deleteTask}
                 setTask={setTask}
+                selectAllTodo={selectAllTodo}
+                selectAll={selectAll}
+
             />
             {/* conditional rendering  */}
             {showModal ?
