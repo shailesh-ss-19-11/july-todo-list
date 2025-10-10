@@ -18,14 +18,7 @@ const Todo = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = todoList.slice(indexOfFirstItem, indexOfLastItem);
-    console.log(currentItems);
     const totalPages = Math.ceil(todoList.length / itemsPerPage);
-
-    // 50/10
-
-    useEffect(() => {
-        setTodoList(currentItems);
-    }, [currentPage])
 
 
     const addTodoTask = () => {
@@ -136,9 +129,10 @@ const Todo = () => {
 
     const selectAllTodo = (event) => {
         setselectAll(event.target.checked)
-        const newTodoList = todoList.map((element) => {
+        const newTodoList = currentItems.map((element) => {
             return { ...element, isChecked: event.target.checked };
         })
+        
         setTodoList(newTodoList);
     }
 
@@ -171,6 +165,7 @@ const Todo = () => {
                 setTask={setTask}
                 selectAllTodo={selectAllTodo}
                 selectAll={selectAll}
+                currentItems={currentItems}
 
             />
             {/* conditional rendering  */}

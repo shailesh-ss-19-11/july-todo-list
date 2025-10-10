@@ -1,5 +1,5 @@
 const TodoTable = (props) => {
-    const { todoList, deleteTask, setshowModal, setTask, handleSelectTodo, selectAllTodo, selectAll } = props;
+    const { todoList, deleteTask, setshowModal, setTask, handleSelectTodo, selectAllTodo, selectAll,currentItems } = props;
     return (
         <>
             <div className="container">
@@ -14,8 +14,8 @@ const TodoTable = (props) => {
                     </thead>
                     <tbody>
                         {
-                            todoList.length > 0 ?
-                                todoList.map((task, index) => {
+                            currentItems.length > 0 ?
+                                currentItems.map((task, index) => {
                                     return (
                                         <tr key={task.id}>
                                             <td><input type="checkbox" checked={task.isChecked} onChange={(e) => handleSelectTodo(e, task.id)} /></td>
