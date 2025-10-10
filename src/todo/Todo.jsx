@@ -11,6 +11,23 @@ const Todo = () => {
     const [task, setTask] = useState({});
     const [selectAll, setselectAll] = useState(false)
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+
+    // Calculate indexes
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = todoList.slice(indexOfFirstItem, indexOfLastItem);
+    console.log(currentItems);
+    const totalPages = Math.ceil(todoList.length / itemsPerPage);
+
+    // 50/10
+
+    useEffect(() => {
+        setTodoList(currentItems);
+    }, [currentPage])
+
+
     const addTodoTask = () => {
         // const uuid = uuidv4();
         if (input !== "") {
@@ -125,8 +142,6 @@ const Todo = () => {
         setTodoList(newTodoList);
     }
 
-    console.log(todoList);
-
     return (
         <>
 
@@ -166,7 +181,15 @@ const Todo = () => {
                     updateTask={updateTask}
                     showModal={showModal} />
                 : null}
+            {console.log(currentPage)}
 
+            {[...Array(totalPages)].map((_, index) => {
+                return (
+                    <button onClick={() => setCurrentPage(index + 1)}>{index + 1}</button>
+                )
+            })
+
+            }
         </>
     )
 }

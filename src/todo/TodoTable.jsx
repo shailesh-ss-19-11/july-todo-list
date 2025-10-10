@@ -1,12 +1,12 @@
 const TodoTable = (props) => {
-    const { todoList, deleteTask, setshowModal, setTask, handleSelectTodo,selectAllTodo,selectAll } = props;
+    const { todoList, deleteTask, setshowModal, setTask, handleSelectTodo, selectAllTodo, selectAll } = props;
     return (
         <>
             <div className="container">
                 <table className="table">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" checked={selectAll} onChange={selectAllTodo}/></th>
+                            <th><input type="checkbox" checked={selectAll} onChange={selectAllTodo} /></th>
                             <th scope="col">#</th>
                             <th scope="col">Task Name</th>
                             <th scope="col">Actions</th>
