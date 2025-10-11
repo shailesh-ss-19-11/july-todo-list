@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import TodoTable from "./TodoTable";
 import EditTodo from "./EditTodo";
+import Swal from "sweetalert2";
 
 const Todo = () => {
     // executes first 
@@ -67,9 +68,27 @@ const Todo = () => {
 
     const deleteTask = (taskid) => {
         // alert("delete task called "+ taskid);
-        const newTodoList = [...todoList];
-        const filteredList = newTodoList.filter((task) => task.id !== taskid)
-        setTodoList(filteredList);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            const newTodoList = [...todoList];
+            const filteredList = newTodoList.filter((task) => task.id !== taskid)
+            setTodoList(filteredList);
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
+
 
     }
 
@@ -119,21 +138,50 @@ const Todo = () => {
     }
 
     const removeSelected = () => {
-        let existingtodoList = [...todoList];
-        const newTodoList = existingtodoList.filter((element) => {
-            return element.isChecked === false
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let existingtodoList = [...todoList];
+                const newTodoList = existingtodoList.filter((element) => {
+                    return element.isChecked === false
+                });
+                setTodoList(newTodoList);
+                setselectAll(false);
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
         });
-        setTodoList(newTodoList);
-        setselectAll(false);
     }
 
     const selectAllTodo = (event) => {
-        setselectAll(event.target.checked)
-        const newTodoList = currentItems.map((element) => {
-            return { ...element, isChecked: event.target.checked };
+        setselectAll(event.target.checked);
+
+        const updatedList = todoList.map((element) => {
+            if (currentItems.includes(element)) {
+                return { ...element, isChecked: event.target.checked }
+            }
+            return element;
         })
-        
-        setTodoList(newTodoList);
+
+        setTodoList(updatedList);
+    }
+
+    const handleSort = (columnName) => {
+        alert("hi")
+        if (columnName === "taskName") {
+            alert("hi inside")
+            setTodoList(todoList.sort());
+        }
     }
 
     return (
@@ -166,7 +214,7 @@ const Todo = () => {
                 selectAllTodo={selectAllTodo}
                 selectAll={selectAll}
                 currentItems={currentItems}
-
+                handleSort={handleSort}
             />
             {/* conditional rendering  */}
             {showModal ?
@@ -180,7 +228,7 @@ const Todo = () => {
 
             {[...Array(totalPages)].map((_, index) => {
                 return (
-                    <button onClick={() => setCurrentPage(index + 1)}>{index + 1}</button>
+                    <button className={currentPage !== index + 1 ? "btn btn-sm m-1 btn-primary " : "btn btn-sm m-1 btn-secondary border border-dark px-3 "} onClick={() => setCurrentPage(index + 1)}>{index + 1}</button>
                 )
             })
 
