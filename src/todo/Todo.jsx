@@ -3,6 +3,15 @@ import { v4 as uuidv4 } from 'uuid';
 import TodoTable from "./TodoTable";
 import EditTodo from "./EditTodo";
 import Swal from "sweetalert2";
+import moment from "moment";
+
+// priority task 
+// add date
+// iscompleted 
+// search 
+// regex in input
+
+
 
 const Todo = () => {
     // executes first 
@@ -13,12 +22,13 @@ const Todo = () => {
     const [selectAll, setselectAll] = useState(false)
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchInput, setSearchInput] = useState("");
     const itemsPerPage = 10;
 
     // Calculate indexes
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = todoList.slice(indexOfFirstItem, indexOfLastItem);
+    let currentItems = todoList?.slice(indexOfFirstItem, indexOfLastItem);
     const totalPages = Math.ceil(todoList.length / itemsPerPage);
 
 
@@ -33,7 +43,7 @@ const Todo = () => {
             if (isExist) {
                 alert("task is already exist");
             } else {
-                let obj = { id: Date.now(), task: input };
+                let obj = { id: Date.now(), task: input, createdAt: moment(new Date()).format("l") };
                 newTodoList = [...newTodoList, obj];
 
                 setTodoList(newTodoList);
@@ -46,23 +56,7 @@ const Todo = () => {
 
     const handleKeyEvent = (event) => {
         if (event.nativeEvent.key === "Enter") {
-            if (input !== "") {
-                let newTodoList = [...todoList];
-                const isExist = newTodoList.some((element) => {
-                    return element.task.toLowerCase().trim() === input.toLowerCase().trim()
-                })
-
-                if (isExist) {
-                    alert("task is already exist");
-                } else {
-                    let obj = { id: Date.now(), task: input, isRemoved: false };
-                    newTodoList = [...newTodoList, obj];
-                    setTodoList(newTodoList);
-                    setInput("");
-                }
-            } else {
-                alert("please write something in input")
-            }
+            addTodoTask();
         }
     }
 
@@ -184,9 +178,28 @@ const Todo = () => {
         }
     }
 
+    const handleSearch = () => {
+        const isTasksExist = todoList.filter((task) => task.task.includes(searchInput));
+        if (isTasksExist.length > 0) {
+            currentItems = isTasksExist;
+        }
+    }
+
+    useEffect(() => {
+        handleSearch()
+    }, [searchInput])
+
+    const completed = (index) => {
+        setTodoList((prev) => {
+            return [...prev, prev[index].isCompleted = true]
+        })
+    }
+
+    console.log(todoList)
+
+
     return (
         <>
-
             <div className="container d-flex gap-3">
                 <div className="input-group mb-3">
                     <input type="text"
@@ -195,6 +208,14 @@ const Todo = () => {
                         placeholder="Enter Task"
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={handleKeyEvent}
+                    />
+                </div>
+                <div className="input-group mb-3">
+                    <input type="text"
+                        className="form-control"
+                        value={searchInput}
+                        placeholder="Search task"
+                        onChange={(e) => setSearchInput(e.target.value)}
                     />
                 </div>
                 <div>
@@ -215,6 +236,7 @@ const Todo = () => {
                 selectAll={selectAll}
                 currentItems={currentItems}
                 handleSort={handleSort}
+                completed={completed}
             />
             {/* conditional rendering  */}
             {showModal ?

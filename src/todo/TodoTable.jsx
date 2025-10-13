@@ -1,5 +1,5 @@
 const TodoTable = (props) => {
-    const { deleteTask, setshowModal, setTask, handleSelectTodo, selectAllTodo, selectAll,currentItems,handleSort } = props;
+    const { deleteTask, setshowModal, setTask, handleSelectTodo, selectAllTodo, selectAll,currentItems,handleSort,completed } = props;
     return (
         <>
             <div className="container">
@@ -24,6 +24,7 @@ const TodoTable = (props) => {
                                             <td>
                                                 <button className="btn btn-sm btn-success mx-1" onClick={() => { setshowModal(true); setTask(task) }}>Edit</button>
                                                 <button className="btn btn-sm btn-danger mx-1" onClick={() => deleteTask(task.id)}>Delete</button>
+                                                <button className="btn btn-sm btn-danger mx-1" onClick={() => completed(index)}>Completed</button>
                                             </td>
                                         </tr>
                                     )
