@@ -170,6 +170,8 @@ const Todo = () => {
     setFilteredList(updatedList);
   };
 
+
+
   return (
     <>
       <div className="container d-flex gap-3">
@@ -189,7 +191,7 @@ const Todo = () => {
             className="form-control"
             value={searchInput}
             placeholder="Search task"
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={() => setSearchInput(event.target.value)}
           />
         </div>
         <div>
@@ -245,3 +247,4 @@ const Todo = () => {
 };
 
 export default Todo;
+
