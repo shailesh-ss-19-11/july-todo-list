@@ -7,6 +7,8 @@ import Header from './components/Header'
 import { Route, Routes } from 'react-router'
 import Home from './pages/Home'
 import About from './pages/About'
+import Login from './auth/Login'
+import Signup from './auth/Signup'
 
 
 function App() {
@@ -16,6 +18,9 @@ function App() {
     <>
     <Header/>
     <Routes>
+
+      <Route path='/signup' Component={Signup}/>
+      <Route path='/login' Component={Login}/>
       <Route path='/home' Component={Home}/>
       <Route path='/about' Component={About}/>
       <Route path='/todo' Component={Todo}/>
