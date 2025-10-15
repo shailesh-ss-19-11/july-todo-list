@@ -174,6 +174,7 @@ const Todo = () => {
 
   return (
     <>
+        <h1 className="text-center">TODO APP</h1>
       <div className="container d-flex gap-3">
         <div className="input-group mb-3">
           <input
