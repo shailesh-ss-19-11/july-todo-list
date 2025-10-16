@@ -16,15 +16,15 @@ function App() {
 
   return (
     <>
-    <Header/>
-    <Routes>
+      <Header />
+      <Routes>
 
-      <Route path='/signup' Component={Signup}/>
-      <Route path='/login' Component={Login}/>
-      <Route path='/home' Component={Home}/>
-      <Route path='/about' Component={About}/>
-      <Route path='/todo' Component={Todo}/>
-    </Routes>
+        <Route path='/signup' Component={Signup} />
+        <Route path='/login' Component={Login} />
+        <Route path='/home' Component={Home} />
+        <Route path='/about' Component={About} />
+        <Route path='/todo' Component={Todo} />
+      </Routes>
       {/* <center>
         <h1>TODO APP</h1>
         <Todo />

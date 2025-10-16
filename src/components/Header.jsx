@@ -10,7 +10,8 @@ const Header = () => {
                 <Link className='p-2' to="todo">Task Manager</Link>
             </div>
             <div>
-                <Link to="/login" className='btn btn-sm btn-primary'>Login</Link>
+                <Link to="/login" className='btn btn-sm btn-primary mx-1'>Login</Link>
+                <Link to="/signup" className='btn btn-sm btn-primary mx-1'>SignUp</Link>
             </div>
         </div>
     )
