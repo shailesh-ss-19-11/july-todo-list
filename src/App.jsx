@@ -9,6 +9,8 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Login from './auth/Login'
 import Signup from './auth/Signup'
+import Users from './users/Users'
+
 
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
         <Route path='/home' Component={Home} />
         <Route path='/about' Component={About} />
         <Route path='/todo' Component={Todo} />
+        <Route path='/users' Component={Users} />
       </Routes>
       {/* <center>
         <h1>TODO APP</h1>
