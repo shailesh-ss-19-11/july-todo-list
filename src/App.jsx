@@ -10,6 +10,8 @@ import About from './pages/About'
 import Login from './auth/Login'
 import Signup from './auth/Signup'
 import Users from './users/Users'
+import Page404 from './components/Page404'
+import UserInfo from './users/UserInfo'
 
 
 
@@ -27,6 +29,8 @@ function App() {
         <Route path='/about' Component={About} />
         <Route path='/todo' Component={Todo} />
         <Route path='/users' Component={Users} />
+        <Route path='/users/:id' Component={UserInfo} />
+        <Route path='*' Component={Page404} />
       </Routes>
       {/* <center>
         <h1>TODO APP</h1>

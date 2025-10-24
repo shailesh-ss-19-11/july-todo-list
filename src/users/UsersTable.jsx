@@ -1,8 +1,10 @@
 import React from 'react'
+import { Link, useNavigate } from 'react-router';
 
 const UsersTable = (props) => {
     const { userData } = props;
     console.log(userData, "userData")
+    const navigate = useNavigate();
     return (
         <>
             <table className='table'>
@@ -21,7 +23,8 @@ const UsersTable = (props) => {
                         userData?.map((user) => {
                             return (
                                 <tr>
-                                    <td>{user.id}</td>
+                                    {/* <td onClick={()=>navigate("/users/"+user.id)}>{user.id}</td> */}
+                                    <td ><Link to={"/users/"+user.id}>{user.id}</Link></td>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>{user["job title"]}</td>
