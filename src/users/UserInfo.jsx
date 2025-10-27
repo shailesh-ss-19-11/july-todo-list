@@ -13,7 +13,7 @@ const UserInfo = () => {
 
   const fetchByID = async () => {
     try {
-      const result = await axios.get(baseUrl + "/" + params?.id);
+      const result = await axios.get(baseUrl + "/" + params?.userid);
       if (result.status === 200) {
         setUser(result.data)
         setloading(false)

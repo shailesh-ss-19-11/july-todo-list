@@ -1,8 +1,10 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 export default function Login() {
-  const [form, setForm] = useState({ username: "", password: "" });
-
+  const [form, setForm] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -10,7 +12,14 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Login Data:", form);
-    // Add authentication logic here (API call etc.)
+    axios.post("http://localhost:4000/api/login", form)
+      .then((response) => {
+        console.log(response, "response")
+        if (response.status === 200) {
+          localStorage.setItem("userinfo", JSON.stringify(response.data.user));
+          navigate("/dashboard");
+        }
+      }).catch((err) => console.log(err))
   };
 
   return (
@@ -19,17 +28,17 @@ export default function Login() {
         <h3 className="text-center mb-4">Login</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="username" className="form-label">
-              Username
+            <label htmlFor="email" className="form-label">
+              email
             </label>
             <input
               type="text"
               className="form-control"
-              id="username"
-              name="username"
-              value={form.username}
+              id="email"
+              name="email"
+              value={form.email}
               onChange={handleChange}
-              placeholder="Enter your username"
+              placeholder="Enter your email"
               required
             />
           </div>

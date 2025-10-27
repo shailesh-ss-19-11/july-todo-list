@@ -24,7 +24,7 @@ const UsersTable = (props) => {
                             return (
                                 <tr>
                                     {/* <td onClick={()=>navigate("/users/"+user.id)}>{user.id}</td> */}
-                                    <td ><Link to={"/users/"+user.id}>{user.id}</Link></td>
+                                    <td ><Link to={`/users/${user.id}`}>{user.id}</Link></td>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>{user["job title"]}</td>

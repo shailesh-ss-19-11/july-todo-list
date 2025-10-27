@@ -12,6 +12,8 @@ import Signup from './auth/Signup'
 import Users from './users/Users'
 import Page404 from './components/Page404'
 import UserInfo from './users/UserInfo'
+import Dashboard from './pages/dashboard/Dashboard'
+import ProtectedRoute from './auth/ProtectedRoute'
 
 
 
@@ -23,14 +25,19 @@ function App() {
       <Header />
       <Routes>
 
-        <Route path='/signup' Component={Signup} />
-        <Route path='/login' Component={Login} />
-        <Route path='/home' Component={Home} />
-        <Route path='/about' Component={About} />
-        <Route path='/todo' Component={Todo} />
-        <Route path='/users' Component={Users} />
-        <Route path='/users/:id' Component={UserInfo} />
-        <Route path='*' Component={Page404} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/todo' element={<ProtectedRoute> <Todo /></ProtectedRoute>} />
+        <Route path='/users' element={<ProtectedRoute><Users /></ProtectedRoute>} />
+        <Route path='/users/:userid' element={<UserInfo />} />
+        <Route path='/dashboard'
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>} />
+        <Route path='*' element={Page404} />
       </Routes>
       {/* <center>
         <h1>TODO APP</h1>
