@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router';
-
 const UsersTable = (props) => {
     const { userData } = props;
     console.log(userData, "userData")
     const navigate = useNavigate();
+
+
     return (
+
         <>
+            <button className='m-3 btn btn-primary' onClick={() => navigate("/users/add-user")}>Add User</button>
             <table className='table'>
                 <thead>
                     <tr>
@@ -16,6 +19,7 @@ const UsersTable = (props) => {
                         <th>job title</th>
                         <th>phone</th>
                         <th>company name</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +34,10 @@ const UsersTable = (props) => {
                                     <td>{user["job title"]}</td>
                                     <td>{user.phone}</td>
                                     <td>{user["company name"]}</td>
+                                    <td>
+                                        <button className='btn btn-primary'>Edit</button>
+                                        <button className='btn btn-danger'>Delete</button>
+                                    </td>
                                 </tr>
                             )
                         }) :

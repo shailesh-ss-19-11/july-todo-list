@@ -14,7 +14,8 @@ import Page404 from './components/Page404'
 import UserInfo from './users/UserInfo'
 import Dashboard from './pages/dashboard/Dashboard'
 import ProtectedRoute from './auth/ProtectedRoute'
-
+import AddUser from './users/AddUser'
+import './app.css';
 
 
 function App() {
@@ -32,12 +33,13 @@ function App() {
         <Route path='/todo' element={<ProtectedRoute> <Todo /></ProtectedRoute>} />
         <Route path='/users' element={<ProtectedRoute><Users /></ProtectedRoute>} />
         <Route path='/users/:userid' element={<UserInfo />} />
+        <Route path='/users/add-user' element={<AddUser />} />
         <Route path='/dashboard'
           element={
             <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>} />
-        <Route path='*' element={Page404} />
+        <Route path='*' element={<Page404/>} />
       </Routes>
       {/* <center>
         <h1>TODO APP</h1>
