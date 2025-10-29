@@ -16,6 +16,7 @@ import Dashboard from './pages/dashboard/Dashboard'
 import ProtectedRoute from './auth/ProtectedRoute'
 import AddUser from './users/AddUser'
 import './app.css';
+import EditUser from './users/EditUser'
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path='/users' element={<ProtectedRoute><Users /></ProtectedRoute>} />
         <Route path='/users/:userid' element={<UserInfo />} />
         <Route path='/users/add-user' element={<AddUser />} />
+        <Route path='/users/edit-user/:id' element={<EditUser />} />
         <Route path='/dashboard'
           element={
             <ProtectedRoute>

@@ -14,9 +14,8 @@ const AddUser = () => {
     }
 
     const handleSubmit = async (e) => {
-
+        e.preventDefault();
         try {
-            e.preventDefault();
             console.log(inputs)
             const result = await axios.post(baseUrl, inputs);
             console.log(result);

@@ -22,16 +22,29 @@ const Users = () => {
             );
             if (response.status === 200) {
                 setuserData(response.data);
-                setloading(true);
+                setloading(false);
             }
         } catch (err) {
-            setloading(true)
+            setloading(false)
             setuserData([])
         }
-
     }
 
     // fetchUserData();
+    const deleteUser = async (id) => {
+        setloading(true);
+        try {
+            const response = await axios.delete(baseUrl + "/" + id);
+            if (response.status === 200) {
+                fetchUserData();
+                setloading(false);
+            } else {
+                setloading(false);
+            }
+        } catch (err) {
+            alert(err.message);
+        }
+    }
 
 
     useEffect(() => {
@@ -58,7 +71,7 @@ const Users = () => {
                 </div>
                 :
                 <>
-                    <UsersTable userData={currentItems} />
+                    <UsersTable userData={currentItems} deleteUser={deleteUser}/>
                     <div className="text-center mt-3">
                         {[...Array(totalPages)].map((_, index) => (
                             <button

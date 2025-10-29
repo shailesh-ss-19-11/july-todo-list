@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router';
 const UsersTable = (props) => {
-    const { userData } = props;
+    const { userData, deleteUser } = props;
     console.log(userData, "userData")
     const navigate = useNavigate();
 
@@ -35,8 +35,8 @@ const UsersTable = (props) => {
                                     <td>{user.phone}</td>
                                     <td>{user["company name"]}</td>
                                     <td>
-                                        <button className='btn btn-primary'>Edit</button>
-                                        <button className='btn btn-danger'>Delete</button>
+                                        <button className='btn btn-primary' onClick={() => navigate("edit-user/" + user.id)}>Edit</button>
+                                        <button className='btn btn-danger' onClick={() => deleteUser(user.id)}>Delete</button>
                                     </td>
                                 </tr>
                             )
