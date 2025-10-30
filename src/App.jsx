@@ -17,6 +17,8 @@ import ProtectedRoute from './auth/ProtectedRoute'
 import AddUser from './users/AddUser'
 import './app.css';
 import EditUser from './users/EditUser'
+import LearnUseCallback from './pages/LearnUseCallback'
+import LearnUseMemo from './pages/LearnUseMemo'
 
 
 function App() {
@@ -25,8 +27,10 @@ function App() {
   return (
     <>
       <Header />
+      {/* <LearnUseCallback/> */}
       <Routes>
-
+        {/* <Route path='/' element={<LearnUseCallback />} /> */}
+        <Route path='/' element={<LearnUseMemo />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/home' element={<Home />} />
@@ -41,7 +45,7 @@ function App() {
             <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>} />
-        <Route path='*' element={<Page404/>} />
+        <Route path='*' element={<Page404 />} />
       </Routes>
       {/* <center>
         <h1>TODO APP</h1>
