@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Todo from './todo/Todo'
-import Pagination from './Pagination'
-import Header from './components/Header'
+import { Suspense, useState } from 'react'
+import { lazy } from 'react'
+
+const Todo = lazy(() => import('./todo/Todo'));
+const Header = lazy(() => import('./components/Header'));
+
 import { Route, Routes } from 'react-router'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -19,10 +19,11 @@ import './app.css';
 import EditUser from './users/EditUser'
 import LearnUseCallback from './pages/LearnUseCallback'
 import LearnUseMemo from './pages/LearnUseMemo'
+import Parent from './pages/Parent'
+import NewChild from './pages/NewChild'
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -30,12 +31,17 @@ function App() {
       {/* <LearnUseCallback/> */}
       <Routes>
         {/* <Route path='/' element={<LearnUseCallback />} /> */}
+        <Route path='/todo' element={<ProtectedRoute>
+          <Suspense fallback={<h1>Loading....</h1>}>
+            <Todo />
+          </Suspense>
+        </ProtectedRoute>} 
+        />
         <Route path='/' element={<LearnUseMemo />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/home' element={<Home />} />
         <Route path='/about' element={<About />} />
-        <Route path='/todo' element={<ProtectedRoute> <Todo /></ProtectedRoute>} />
         <Route path='/users' element={<ProtectedRoute><Users /></ProtectedRoute>} />
         <Route path='/users/:userid' element={<UserInfo />} />
         <Route path='/users/add-user' element={<AddUser />} />
@@ -51,6 +57,9 @@ function App() {
         <h1>TODO APP</h1>
         <Todo />
       </center> */}
+      {/* <Parent>
+        <NewChild/>
+      </Parent> */}
     </>
   )
 }
