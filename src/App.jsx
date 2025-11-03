@@ -20,7 +20,9 @@ import EditUser from './users/EditUser'
 import LearnUseCallback from './pages/LearnUseCallback'
 import LearnUseMemo from './pages/LearnUseMemo'
 import Parent from './pages/Parent'
+
 import NewChild from './pages/NewChild'
+import Component1 from './propsdrilling/Component1';
 
 
 function App() {
@@ -52,6 +54,7 @@ function App() {
               <Dashboard />
             </ProtectedRoute>} />
         <Route path='*' element={<Page404 />} />
+      <Route path='/test-props-drilling' element={<Component1 />} />
       </Routes>
       {/* <center>
         <h1>TODO APP</h1>
