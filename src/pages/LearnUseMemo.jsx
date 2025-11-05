@@ -6,7 +6,7 @@ const LearnUseMemo = () => {
 
 
     const total = useMemo(() => {
-        console.log("calculation running");
+        // console.log("calculation running");
         let total = 0;
         for (let i = 0; i < 100000; i++) {
             total += i;

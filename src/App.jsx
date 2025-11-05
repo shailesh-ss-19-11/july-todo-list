@@ -23,6 +23,7 @@ import Parent from './pages/Parent'
 
 import NewChild from './pages/NewChild'
 import Component1 from './propsdrilling/Component1';
+import Counter from './reduxCounter/Counter';
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
             </ProtectedRoute>} />
         <Route path='*' element={<Page404 />} />
       <Route path='/test-props-drilling' element={<Component1 />} />
+      <Route path='/redux-counter' element={<Counter />} />
       </Routes>
       {/* <center>
         <h1>TODO APP</h1>

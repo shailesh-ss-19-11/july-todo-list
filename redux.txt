@@ -1,0 +1,27 @@
+redux is globle state management tool
+
+instead of redux we are using redux-toolkit
+
+store----> its a collection of reducers 
+reducer ---> its a collections of actions
+actions ---> its a collection of functions
+state -----> its basically a value which will change later like useState
+
+why redux toolkit ?
+we dont have to manage reducers conditions in redux toolkit 
+
+two hooks to use reducers 
+
+useSelector ---> fetch the state 
+
+useDispatch --> send the data in state / update the state
+
+
+Step 1 ---> create a store.js 
+step 2 ---> define createstore and export it.
+
+step 3----> provide store to root component 
+step 4----> use Provider Component for wrap app component in main.jsx file
+step 5---> send store which we are defined in store.js as props to provider
+
+step 6---> create Slice for perticular module

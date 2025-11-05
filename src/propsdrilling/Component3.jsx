@@ -3,7 +3,6 @@ import { ThemeContext } from './Component1';
 
 const Component3 = ({ setinput }) => {
     const obj = useContext(ThemeContext);
-    console.log(obj);
     return (
         <div>
             Component3 age

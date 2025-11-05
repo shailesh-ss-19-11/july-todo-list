@@ -5,12 +5,16 @@ import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'sweetalert2/src/sweetalert2.scss'
 import { BrowserRouter } from 'react-router';
+import { Provider } from 'react-redux';
+import { store } from './store.js';
 
 
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
   <BrowserRouter>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>
   // </StrictMode>,
 )
